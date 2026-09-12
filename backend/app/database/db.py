@@ -1,4 +1,4 @@
-"""Update database initialization to include communication tables."""
+"""Update database initialization to include field-level permissions."""
 import os
 from sqlalchemy import create_engine, event
 from sqlalchemy.orm import sessionmaker, declarative_base
@@ -39,9 +39,11 @@ def init_db():
     """Initialize database and seed with test data."""
     from app.database.schema import create_tables
     from app.database.communication_tables import create_communication_tables
+    from app.database.field_permission_schema import FieldLevelPermission  # noqa: F401
     from app.database.seed import seed_data
 
     create_tables()
     create_communication_tables()
+    Base.metadata.create_all(bind=engine)  # Create field_level_permissions table
     seed_data()
     print("✅ Database initialized successfully")
