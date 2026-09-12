@@ -2,7 +2,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database.db import init_db
-from app.api import auth, users, health, agents
+from app.api import auth, users, health, agents, communication
 
 # Initialize database
 init_db()
@@ -11,7 +11,7 @@ init_db()
 app = FastAPI(
     title="AI² Backend",
     description="Privacy-First Network of Personal AI Agents",
-    version="0.1.0"
+    version="0.2.0"
 )
 
 # Add CORS middleware
@@ -28,6 +28,7 @@ app.include_router(health.router)
 app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(agents.router)
+app.include_router(communication.router)
 
 
 @app.get("/")
@@ -35,9 +36,14 @@ async def root():
     """Root endpoint."""
     return {
         "message": "AI² Backend - Privacy-First Network of Personal AI Agents",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "docs": "/docs",
-        "status": "running"
+        "status": "running",
+        "phases": {
+            "phase_2": "✅ Backend foundation, Users A/B, Agents A/B",
+            "phase_3": "✅ Agent-to-Agent communication (current)",
+            "phase_4": "⏳ Permission engine with ALLOW/DENY logic"
+        }
     }
 
 

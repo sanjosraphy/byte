@@ -1,4 +1,4 @@
-"""Database connection and initialization."""
+"""Update database initialization to include communication tables."""
 import os
 from sqlalchemy import create_engine, event
 from sqlalchemy.orm import sessionmaker, declarative_base
@@ -38,8 +38,10 @@ def get_db():
 def init_db():
     """Initialize database and seed with test data."""
     from app.database.schema import create_tables
+    from app.database.communication_tables import create_communication_tables
     from app.database.seed import seed_data
 
     create_tables()
+    create_communication_tables()
     seed_data()
     print("✅ Database initialized successfully")
