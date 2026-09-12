@@ -1,0 +1,1 @@
+"""AI² Backend Application."""
